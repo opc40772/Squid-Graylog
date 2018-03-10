@@ -1,1 +1,119 @@
-{"name":"Squid","description":"Grok patterns, Inputs & Streams","category":"Proxies","inputs":[{"id":"5a90a5a0687cf821d00466f4","title":"Squid-Logs","configuration":{"recv_buffer_size":1048576,"port":5044,"tls_key_file":"","tls_enable":false,"tls_key_password":"","tcp_keepalive":false,"tls_client_auth_cert_file":"","tls_client_auth":"disabled","override_source":null,"bind_address":"0.0.0.0","tls_cert_file":""},"static_fields":{},"type":"org.graylog.plugins.beats.BeatsInput","global":false,"extractors":[{"title":"Squid Extractor","type":"GROK","cursor_strategy":"COPY","target_field":"","source_field":"message","configuration":{"grok_pattern":"^%{BASE10NUM:UNWANTED}%{SPACE:UNWANTED}%{INT:Duration;int} %{IPV4:Client_Address} %{DATA:Result_Code;string}\\/%{BASE10NUM:Status_Code;int} %{INT:Bytes;int} %{WORD:Method;string} %{SQUIDURI:URI;string} %{DATA:User;string} %{DATA:Peer_Status;string}\\/%{DATA:Peer_Host;string} %{DATA:Content-Type;string}$","named_captures_only":false},"converters":[],"condition_type":"NONE","condition_value":"","order":0}]}],"streams":[{"id":"5a9479ed687cf8095f8f335e","title":"Squid Access Logs","description":"Squid3","disabled":false,"matching_type":"AND","stream_rules":[{"type":"EXACT","field":"type","value":"squid3","inverted":false,"description":""}],"outputs":[],"default_stream":false}],"outputs":[],"dashboards":[],"grok_patterns":[{"name":"SQUIDURIPATH","pattern":"([a-zA-Z0-9-._~!$&'()*+,;=:\\/%?]+)"},{"name":"SQUIDURIPROTO","pattern":"([a-z]+)"},{"name":"SQUIDURIPORT","pattern":"([\\d]+)"},{"name":"SQUIDURIUSER","pattern":"([a-z0-9-._~!$&'()*+,;=:]+)"},{"name":"SQUIDCONTENTTYPE","pattern":"([-\\w]{1,127}\\/[-\\w]{1,127})|(-)"},{"name":"SQUIDURI","pattern":"(?:%{SQUIDURIPROTO:URI_Protocol;string}:\\/\\/|)(?:%{SQUIDURIUSER:URI_User;string}@|)%{SQUIDURIHOST:URI_Host;string}(?:\\:%{SQUIDURIPORT:URI_Port;int}|)(?:\\/%{SQUIDURIPATH:URI_Path;string}|)(?:#%{SQUIDURIFRAG:URI_Frag;string}|)"},{"name":"SQUIDURIHOST","pattern":"([a-z0-9-._~!$&'()*+,;=]+)"},{"name":"SQUIDURIFRAG","pattern":"([a-z0-9-._~!$&'()*+,;=:]+)"}],"lookup_tables":[],"lookup_caches":[],"lookup_data_adapters":[]}
+{
+   "name":"Squid",
+   "description":"Grok patterns, Inputs & Streams",
+   "category":"Proxies",
+   "inputs":[
+      {
+         "id":"5a90a5a0687cf821d00466f4",
+         "title":"Squid-Logs",
+         "configuration":{
+            "recv_buffer_size":1048576,
+            "port":5044,
+            "tls_key_file":"",
+            "tls_enable":false,
+            "tls_key_password":"",
+            "tcp_keepalive":false,
+            "tls_client_auth_cert_file":"",
+            "tls_client_auth":"disabled",
+            "override_source":null,
+            "bind_address":"0.0.0.0",
+            "tls_cert_file":""
+         },
+         "static_fields":{
+
+         },
+         "type":"org.graylog.plugins.beats.BeatsInput",
+         "global":false,
+         "extractors":[
+            {
+               "title":"Squid Extractor",
+               "type":"GROK",
+               "cursor_strategy":"COPY",
+               "target_field":"",
+               "source_field":"message",
+               "configuration":{
+                  "grok_pattern":"^%{BASE10NUM:UNWANTED}%{SPACE:UNWANTED}%{INT:Duration;int} %{IPV4:Client_Address} %{DATA:Result_Code;string}\\/%{BASE10NUM:Status_Code;int} %{INT:Bytes;int} %{WORD:Method;string} %{SQUIDURI:URI;string} %{DATA:User;string} %{DATA:Peer_Status;string}\\/%{DATA:Peer_Host;string} %{DATA:Content-Type;string}$",
+                  "named_captures_only":false
+               },
+               "converters":[
+
+               ],
+               "condition_type":"NONE",
+               "condition_value":"",
+               "order":0
+            }
+         ]
+      }
+   ],
+   "streams":[
+      {
+         "id":"5a9479ed687cf8095f8f335e",
+         "title":"Squid Access Logs",
+         "description":"Squid3",
+         "disabled":false,
+         "matching_type":"AND",
+         "stream_rules":[
+            {
+               "type":"EXACT",
+               "field":"type",
+               "value":"squid3",
+               "inverted":false,
+               "description":""
+            }
+         ],
+         "outputs":[
+
+         ],
+         "default_stream":false
+      }
+   ],
+   "outputs":[
+
+   ],
+   "dashboards":[
+
+   ],
+   "grok_patterns":[
+      {
+         "name":"SQUIDURIPATH",
+         "pattern":"([a-zA-Z0-9-._~!$&'()*+,;=:\\/%?]+)"
+      },
+      {
+         "name":"SQUIDURIPROTO",
+         "pattern":"([a-z]+)"
+      },
+      {
+         "name":"SQUIDURIPORT",
+         "pattern":"([\\d]+)"
+      },
+      {
+         "name":"SQUIDURIUSER",
+         "pattern":"([a-z0-9-._~!$&'()*+,;=:]+)"
+      },
+      {
+         "name":"SQUIDCONTENTTYPE",
+         "pattern":"([-\\w]{1,127}\\/[-\\w]{1,127})|(-)"
+      },
+      {
+         "name":"SQUIDURI",
+         "pattern":"(?:%{SQUIDURIPROTO:URI_Protocol;string}:\\/\\/|)(?:%{SQUIDURIUSER:URI_User;string}@|)%{SQUIDURIHOST:URI_Host;string}(?:\\:%{SQUIDURIPORT:URI_Port;int}|)(?:\\/%{SQUIDURIPATH:URI_Path;string}|)(?:#%{SQUIDURIFRAG:URI_Frag;string}|)"
+      },
+      {
+         "name":"SQUIDURIHOST",
+         "pattern":"([a-z0-9-._~!$&'()*+,;=]+)"
+      },
+      {
+         "name":"SQUIDURIFRAG",
+         "pattern":"([a-z0-9-._~!$&'()*+,;=:]+)"
+      }
+   ],
+   "lookup_tables":[
+
+   ],
+   "lookup_caches":[
+
+   ],
+   "lookup_data_adapters":[
+
+   ]
+}
