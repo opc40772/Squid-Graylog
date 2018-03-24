@@ -10,7 +10,8 @@
             "tokenizer": "keyword"
           }
         }
-      }
+      },
+      "max_result_window": "1000000"
     }
   },
   "mappings": {
