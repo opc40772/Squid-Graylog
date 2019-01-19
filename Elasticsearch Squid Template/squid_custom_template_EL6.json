@@ -1,0 +1,79 @@
+{
+  "order": -1,
+  "index_patterns": [
+    "squid_*"
+  ],
+  "settings": {
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "analyzer_keyword": {
+            "filter": "lowercase",
+            "tokenizer": "keyword"
+          }
+        }
+      },
+      "max_result_window": "1000000"
+    }
+  },
+  "mappings": {
+    "message": {
+      "properties": {
+        "message": {
+          "type": "text",
+          "analyzer": "standard",
+          "fielddata": false
+        },
+        "full_message": {
+          "type": "text",
+          "analyzer": "standard",
+          "fielddata": false
+        },
+        "timestamp": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss.SSS"
+        },
+        "real_timestamp": {
+          "type": "date"
+        },
+        "source": {
+          "type": "text",
+          "analyzer": "analyzer_keyword",
+          "fielddata": true
+        },
+        "streams": {
+          "type": "keyword"
+        },
+        "Peer_Host_geolocation": {
+          "type": "text",
+          "copy_to": "geo_location"
+        },
+        "geo_location": {
+          "type": "geo_point"
+        }
+      },
+      "dynamic_templates": [
+        {
+          "internal_fields": {
+            "match": "gl2_*",
+            "mapping": {
+              "type": "keyword"
+            }
+          }
+        },
+        {
+          "store_generic": {
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "keyword"
+            }
+          }
+        }
+      ],
+      "_source": {
+        "enabled": true
+      }
+    }
+  },
+  "aliases": {}
+}
